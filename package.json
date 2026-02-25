@@ -1,0 +1,18 @@
+{
+  "name": "adr-api",
+  "version": "0.1.0",
+  "description": "Accountability.ai ADR Generation API",
+  "type": "module",
+  "main": "adr-api.js",
+  "scripts": {
+    "start": "node adr-api.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.18.0",
+    "helmet": "^7.0.0",
+    "@supabase/supabase-js": "^2.0.0",
+    "ulid": "^2.3.0"
+  }
+}
