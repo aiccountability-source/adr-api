@@ -1,10 +1,21 @@
 {
-"dependencies": {
-  "express": "^4.18.2",
-  "@supabase/supabase-js": "^2.38.0",
-  "ulid": "^2.3.0",
-  "dotenv": "^16.3.1",
-  "helmet": "^7.1.0",
-  "cors": "^2.8.5",
-  "json-canonicalize": "^1.0.0"
+  "name": "adr-api",
+  "version": "0.1.0",
+  "description": "ADR Generation API for accountability.ai",
+  "main": "adr-api.cjs",
+  "scripts": {
+    "start": "node adr-api.cjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
+    "json-canonicalize": "^1.0.0",
+    "ulid": "^2.3.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
