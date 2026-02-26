@@ -26,7 +26,7 @@ app.get('/verify-adr/:adrId', async (req, res) => {
 });
 
 // Ingestion endpoint
-app.post('/ingest-adr', async (req, res) => {
+app.post('/api/adr', async (req, res) => {
   const apiKey = req.headers['x-api-key'];
   if (apiKey !== masterApiKey) {
     return res.status(401).json({ error: 'Invalid API key' });
