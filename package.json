@@ -5,7 +5,7 @@
   "type": "module",
   "main": "adr-api.js",
   "scripts": {
-    "start": "node adr-api.js"
+    "start": "node adr-api.cjs"
   },
   "dependencies": {
     "cors": "^2.8.5",
