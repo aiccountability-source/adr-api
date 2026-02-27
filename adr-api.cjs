@@ -1,8 +1,21 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
-const canonicalize = require('json-canonicalize');
 const crypto = require('crypto');
-
+// Deterministic JSON stringifier with sorted keys (canonical equivalent)
+function canonicalize(obj) {
+  const sortKeys = (o) => {
+    if (o && typeof o === 'object' && !Array.isArray(o)) {
+      return Object.keys(o).sort().reduce((acc, key) => {
+        acc[key] = sortKeys(o[key]);
+        return acc;
+      }, {});
+    } else if (Array.isArray(o)) {
+      return o.map(item => sortKeys(item));
+    }
+    return o;
+  };
+  return JSON.stringify(sortKeys(obj));
+}
 const app = express();
 app.use(express.json());
 
