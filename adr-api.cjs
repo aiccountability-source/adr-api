@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Environment variables (set in Railway)
 const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_SERVICE_KEY;;
+const supabaseKey = process.env.SUPABASE_SERVICE_KEY;
 const signingPrivateKey = process.env.SIGNING_PRIVATE_KEY;
 const masterApiKey = process.env.MASTER_API_KEY;
 
