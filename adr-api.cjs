@@ -101,11 +101,14 @@ app.post('/adr', async (req, res) => {
   const canonical = canonicalize(adrPayload);
   const record_hash = crypto.createHash('sha256').update(canonical).digest('hex');
 
-  // Sign with Ed25519
-  const sign = crypto.createSign('ed25519');
-  sign.update(record_hash);
-  sign.end();
-  const signature = sign.sign(signingPrivateKey, 'hex');
+  // Sign with HMAC-SHA256 using ADR_SIGNING_KEY
+const hmacKey = process.env.ADR_SIGNING_KEY;
+if (!hmacKey) {
+  throw new Error('ADR_SIGNING_KEY environment variable is required');
+}
+const signature = crypto.createHmac('sha256', hmacKey)
+                       .update(record_hash)
+                       .digest('hex');
 
   // Insert into ledger_events
   const insertPayload = {
