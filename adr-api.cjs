@@ -1,6 +1,8 @@
 const express = require('express');
 const { createClient } = require('@supabase/supabase-js');
 const crypto = require('crypto');
+const cors = require('cors');
+
 // Deterministic JSON stringifier with sorted keys (canonical equivalent)
 function canonicalize(obj) {
   const sortKeys = (o) => {
@@ -18,6 +20,7 @@ function canonicalize(obj) {
 }
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Environment variables (set in Railway)
 const supabaseUrl = process.env.SUPABASE_URL;
