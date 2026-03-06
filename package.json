@@ -4,7 +4,7 @@
   "description": "ADR Generation API for accountability.ai",
   "main": "adr-api.cjs",
   "scripts": {
-    "start": "node adr-api.cjs"
+    "start": "node adr-api.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.38.0",
