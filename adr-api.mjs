@@ -1,28 +1,28 @@
 // ============================================================
-// ACCOUNTABILITY.AI — ADR GENERATION API  v0.3.0
+// ACCOUNTABILITY.AI - ADR GENERATION API  v0.3.0
 // Node.js / Express service
 // Wraps any AI system and produces tamper-evident ADR records
 //
 // CHANGELOG v0.3.0
 // ─────────────────────────────────────────────────────────────
-// • Decentralized Chain Registry — any organization implementing
+// • Decentralized Chain Registry - any organization implementing
 //   the ADR standard can register their agent and public key.
 //   accountability.ai does not need to be in the verification
 //   path. The registry holds pointers, not records.
 //
-// • Global ADR counter — cumulative proof of ecosystem volume
+// • Global ADR counter - cumulative proof of ecosystem volume
 //   displayed alongside per-agent chain_sequence. Demonstrates
 //   total accountability events across all registered agents.
 //
-// • Cross-chain independent verification — verify any ADR from
+// • Cross-chain independent verification - verify any ADR from
 //   any registered organization by fetching their public key
 //   directly from their .well-known/adr-public-key endpoint.
 //   accountability.ai is not required for verification.
 //
-// • /registry         — public list of all registered agents
-// • /registry/register — any org can register their ADR agent
-// • /verify/cross/:adr_id — independent cross-org verification
-// • /stats/global     — ecosystem-wide ADR volume and health
+// • /registry         - public list of all registered agents
+// • /registry/register - any org can register their ADR agent
+// • /verify/cross/:adr_id - independent cross-org verification
+// • /stats/global     ecosystem-wide ADR volume and health
 //
 // Architecture principle: accountability.ai wrote the rules,
 // built the reference implementation, and then made itself
@@ -39,8 +39,8 @@
 // ENV VARS REQUIRED:
 //   SUPABASE_URL=https://your-project.supabase.co
 //   SUPABASE_SERVICE_KEY=your-service-role-key
-//   ADR_SIGNING_PRIVATE_KEY=<hex>  — Ed25519 private key (PKCS8/DER/hex)
-//   ADR_SIGNING_PUBLIC_KEY=<hex>   — Ed25519 public key  (SPKI/DER/hex)
+//   ADR_SIGNING_PRIVATE_KEY=<hex>  - Ed25519 private key (PKCS8/DER/hex)
+//   ADR_SIGNING_PUBLIC_KEY=<hex>   - Ed25519 public key  (SPKI/DER/hex)
 //   PORT=3001
 //
 // NEW TABLE REQUIRED (v0.3.0):
@@ -68,12 +68,12 @@ const supabase = createClient(
 
 // ── Ed25519 SIGNING KEYS ──────────────────────────────────────
 //
-// Replaces HMAC-SHA256 (symmetric — required shared secret for
+// Replaces HMAC-SHA256 (symmetric - required shared secret for
 // verification, could not support independent third-party audit).
 //
 // Ed25519 is asymmetric:
-//   Private key  — signs records (held only by this service / HSM)
-//   Public key   — verifies signatures (published at well-known URL)
+//   Private key  - signs records (held only by this service / HSM)
+//   Public key   - verifies signatures (published at well-known URL)
 //
 // Any regulator, auditor, or coalition partner can independently
 // verify any ADR signature without contacting accountability.ai.
@@ -85,7 +85,7 @@ function loadSigningKeys() {
   const pubHex  = process.env.ADR_SIGNING_PUBLIC_KEY;
 
   if (!privHex || !pubHex) {
-    console.warn('⚠  Signing keys not set — running unsigned (dev mode)');
+    console.warn('⚠  Signing keys not set - running unsigned (dev mode)');
     console.warn('   Run: node generate-ed25519-keys.js');
     return { privateKey: null, publicKey: null, publicHex: null };
   }
@@ -102,7 +102,7 @@ function loadSigningKeys() {
     const msg = Buffer.from('adr-key-self-test');
     const sig = crypto.sign(null, msg, privateKey);
     if (!crypto.verify(null, msg, publicKey, sig)) {
-      throw new Error('Ed25519 self-test failed — keys do not match');
+      throw new Error('Ed25519 self-test failed - keys do not match');
     }
 
     console.log('✓ Ed25519 signing keys loaded and verified');
@@ -121,9 +121,9 @@ const KEYS = loadSigningKeys();
 // ============================================================
 
 /**
- * Canonical serialization — deterministic, spec-ordered JSON.
+ * Canonical serialization - deterministic, spec-ordered JSON.
  * Extension fields excluded to preserve forward compatibility.
- * Spec: Section 05 — Canonical Serialization
+ * Spec: Section 05 - Canonical Serialization
  */
 function canonicalize(record) {
   return JSON.stringify({
@@ -203,7 +203,7 @@ function verifySignatureWithKey(recordHash, signatureHex, publicKeyHex) {
 
 /**
  * Get previous hash and next sequence for chain linkage.
- * Scoped per agent_id — each AI system maintains its own
+ * Scoped per agent_id - each AI system maintains its own
  * append-only chain. This is the correct production model:
  * a bank's hiring AI and its loan AI have separate chains,
  * each independently verifiable.
@@ -230,7 +230,7 @@ async function getPreviousHash(agentId) {
 
 /**
  * Get global ADR count across all agents and organizations.
- * This is the ecosystem-wide volume counter — cumulative proof
+ * This is the ecosystem-wide volume counter - cumulative proof
  * that the standard is in use. Displayed alongside per-agent
  * chain_sequence to show both individual chain integrity and
  * total accountability events in the ecosystem.
@@ -244,7 +244,7 @@ async function getGlobalAdrCount() {
 }
 
 /**
- * Core ADR builder — the only path by which records enter the ledger.
+ * Core ADR builder - the only path by which records enter the ledger.
  */
 async function generateADR({
   system, org, decisionType, inputSummary, output, confidence, reasoning,
@@ -324,7 +324,7 @@ app.get('/health', async (req, res) => {
   });
 });
 
-// ── /.well-known/adr-public-key — Trust anchor for independent verification ──
+// ── /.well-known/adr-public-key - Trust anchor for independent verification ──
 //
 // Any regulator, auditor, or coalition partner fetches this URL to obtain
 // the public key needed to verify ADR signatures without contacting
@@ -332,7 +332,7 @@ app.get('/health', async (req, res) => {
 //
 app.get('/.well-known/adr-public-key', (req, res) => {
   if (!KEYS.publicHex) {
-    return res.status(503).json({ error: 'Public key not configured — dev mode' });
+    return res.status(503).json({ error: 'Public key not configured - dev mode' });
   }
   res.json({
     algorithm:    'Ed25519',
@@ -345,12 +345,12 @@ app.get('/.well-known/adr-public-key', (req, res) => {
   });
 });
 
-// ── GET /registry — Public decentralized agent registry ──────
+// ── GET /registry - Public decentralized agent registry ──────
 //
 // The registry holds pointers, not records.
 // Any organization implementing the ADR standard can register
 // their agent and public key. accountability.ai does not control
-// or intermediate verification — any registered agent's ADRs
+// or intermediate verification - any registered agent's ADRs
 // can be verified directly using their published public key.
 //
 // This is the open ecosystem layer. The standard defines the
@@ -375,7 +375,7 @@ app.get('/registry', async (req, res) => {
     registry: 'accountability.ai ADR Standard Registry',
     spec: 'accountability.ai/adr-spec-v0.1',
     description: 'Decentralized registry of ADR-compliant AI systems. ' +
-      'accountability.ai does not intermediate verification — ' +
+      'accountability.ai does not intermediate verification - ' +
       'verify any ADR directly using the published public key at each agent\'s public_key_url.',
     global_adr_count: globalCount,
     registered_agents: data.length,
@@ -384,12 +384,12 @@ app.get('/registry', async (req, res) => {
   });
 });
 
-// ── POST /registry/register — Register an ADR-compliant agent ─
+// ── POST /registry/register - Register an ADR-compliant agent ─
 //
 // Open to any organization implementing the ADR standard.
 // No accountability.ai approval required for registration.
 // Verification status (verified: true) is set after the
-// governance body confirms spec compliance — see Section 10.
+// governance body confirms spec compliance - see Section 10.
 //
 app.post('/registry/register', async (req, res) => {
   const {
@@ -417,7 +417,7 @@ app.post('/registry/register', async (req, res) => {
       keyFetchValid = !!(keyData.public_key && keyData.algorithm === 'Ed25519');
     }
   } catch {
-    // Key URL unreachable — register but flag as unverified
+    // Key URL unreachable - register but flag as unverified
     keyFetchValid = false;
   }
 
@@ -463,7 +463,7 @@ app.post('/registry/register', async (req, res) => {
   });
 });
 
-// ── GET /verify/cross/:adr_id — Independent cross-org verification ──
+// ── GET /verify/cross/:adr_id - Independent cross-org verification ──
 //
 // Verifies any ADR from any registered organization by:
 // 1. Fetching the ADR record from the local ledger (if registered here)
@@ -554,7 +554,7 @@ app.post('/verify/cross', async (req, res) => {
   });
 });
 
-// ── GET /stats/global — Ecosystem-wide ADR volume and health ──
+// ── GET /stats/global - Ecosystem-wide ADR volume and health ──
 //
 // Shows cumulative proof of standard adoption across all
 // registered organizations and agents.
@@ -587,7 +587,7 @@ app.get('/stats/global', async (req, res) => {
     chain_health:          chainHealth.data ?? [],
     decision_type_counts:  decisionBreakdown ?? {},
     note: 'global_adr_count reflects ADRs in the accountability.ai reference implementation. ' +
-          'Registered organizations maintain their own ledgers — their counts are not ' +
+          'Registered organizations maintain their own ledgers - their counts are not ' +
           'aggregated here, preserving decentralization.',
     timestamp: new Date().toISOString(),
   });
@@ -617,7 +617,7 @@ app.post('/adr', requireApiKey, async (req, res) => {
   if (typeof reasoning !== 'string' || reasoning.trim().length < 20) {
     return res.status(400).json({
       error: 'reasoning field insufficient',
-      note:  'Minimum 20 characters — full chain-of-thought, not a summary',
+      note:  'Minimum 20 characters - full chain-of-thought, not a summary',
     });
   }
 
@@ -660,7 +660,7 @@ app.post('/adr', requireApiKey, async (req, res) => {
   }
 });
 
-// ── GET /verify/:adr_id — Chain + signature verification ──
+// ── GET /verify/:adr_id - Chain + signature verification ──
 app.get('/verify/:adr_id', async (req, res) => {
   const { adr_id } = req.params;
 
@@ -827,7 +827,7 @@ const PORT = process.env.PORT ?? 3001;
 app.listen(PORT, () => {
   console.log(`
   ╔══════════════════════════════════════════════════════════╗
-  ║  ACCOUNTABILITY.AI — ADR API  v0.3.0                     ║
+  ║  ACCOUNTABILITY.AI - ADR API  v0.3.0                     ║
   ║  Port ${PORT}  ·  Signing: Ed25519                          ║
   ║  Decentralized Registry: /registry                       ║
   ║  Cross-org Verification: POST /verify/cross              ║
