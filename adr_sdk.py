@@ -94,6 +94,10 @@ class DecisionType(str, Enum):
     SUITABILITY_RECOMMENDATION = "suitability_recommendation"
     PORTFOLIO_REBALANCING = "portfolio_rebalancing"
     INVESTMENT_RECOMMENDATION = "investment_recommendation"
+    # Insurance
+    INSURANCE_UNDERWRITING = "insurance_underwriting"
+    LIFE_UNDERWRITING = "life_underwriting"
+    RISK_ASSESSMENT = "risk_assessment"
     # General
     CONTENT_MODERATION = "content_moderation"
     FRAUD_DETECTION = "fraud_detection"
@@ -677,7 +681,7 @@ if __name__ == "__main__":
             "rebalancing_value": 408000
         },
         reasoning=(
-            "Portfolio rebalancing deferred — referred for advisor review at 74% confidence. "
+            "Portfolio rebalancing deferred: referred for advisor review at 74% confidence. "
             "Current equity allocation 72% exceeds IPS target of 55% for clients within 5 years "
             "of retirement by 17 percentage points. Rebalancing value: $408,000. "
             "IPS equity deviation contributed +42% toward rebalancing recommendation. "
