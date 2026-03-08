@@ -1,0 +1,71 @@
+cff-version: 1.2.0
+title: "ADR SDK — Agent Decision Record"
+abstract: >
+  A bolt-on Python SDK for generating tamper-evident, cryptographically
+  verifiable Agent Decision Records. Compliant with the ADR Specification
+  v0.1 and Reasoning Capture Methodology v1.0. Zero external dependencies
+  in demo mode. Ed25519 signing for production deployment.
+authors:
+  - name: "Accountability.ai"
+    website: "https://accountability.ai"
+    email: "spec@accountability.ai"
+contact:
+  - name: "Accountability.ai"
+    email: "spec@accountability.ai"
+version: "0.1.0"
+date-released: "2026-03-01"
+license: CC-BY-4.0
+url: "https://accountability.ai"
+repository-code: "https://github.com/accountability-ai/adr-sdk"
+keywords:
+  - AI accountability
+  - agent decision records
+  - explainable AI
+  - audit trail
+  - cryptographic integrity
+  - hash chain
+  - reasoning capture
+  - EU AI Act
+  - Canadian AI governance
+  - CFPB adverse action
+identifiers:
+  - type: isbn
+    value: "978-1-7389042-0-4"
+    description: "ADR Specification v0.1 — companion specification"
+  - type: isbn
+    value: "978-1-7389042-1-1"
+    description: "Reasoning Capture Methodology v1.0 — companion methodology"
+  - type: url
+    value: "https://accountability.ai/adr-spec-v0.1"
+    description: "ADR Specification v0.1 — canonical URL"
+  - type: url
+    value: "https://accountability.ai/reasoning-methodology-v1.0"
+    description: "Reasoning Capture Methodology v1.0 — canonical URL"
+references:
+  - type: standard
+    title: "ADR Specification v0.1"
+    authors:
+      - name: "Accountability.ai"
+    isbn: "978-1-7389042-0-4"
+    url: "https://accountability.ai/adr-spec-v0.1"
+    year: 2026
+  - type: standard
+    title: "Reasoning Capture Methodology v1.0"
+    authors:
+      - name: "Accountability.ai"
+    isbn: "978-1-7389042-1-1"
+    url: "https://accountability.ai/reasoning-methodology-v1.0"
+    year: 2026
+message: >
+  If you use this SDK in research, a product, or regulatory submission,
+  cite it using these metadata and reference the companion specifications.
+preferred-citation:
+  type: software
+  title: "ADR SDK — Agent Decision Record"
+  authors:
+    - name: "Accountability.ai"
+  version: "0.1.0"
+  date-released: "2026-03-01"
+  license: CC-BY-4.0
+  url: "https://accountability.ai"
+  repository-code: "https://github.com/accountability-ai/adr-sdk"
