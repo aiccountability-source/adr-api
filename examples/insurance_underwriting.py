@@ -1,6 +1,6 @@
 """
 Example: Insurance Underwriting — Term Life Application
-ADR SDK — Accountability.ai
+ADR SDK Accountability.ai
 
 Covers actuarial risk assessment with converging risk factors,
 stale medical records flag, and self-reported data quality gaps.
@@ -19,7 +19,7 @@ client = ADRClient(
 )
 
 record = client.record(
-    decision_type="export_eligibility",  # using closest available; extend enum for insurance_underwriting
+    decision_type="insurance_underwriting",
     input_summary={
         "applicant_id": "pseudonym-RO52",
         "age": 52,
@@ -41,7 +41,7 @@ record = client.record(
         "coverage_approved": False
     },
     reasoning=(
-        "Term life underwriting deferred — referred for medical underwriter review "
+        "Term life underwriting deferred: referred for medical underwriter review "
         "at 0.71 confidence. Converging risk factors prevent automated approval. "
         "BMI of 31.4 (Class I obesity) contributed +0.31 toward substandard rating. "
         "Blood pressure 138/88 is borderline Stage 1 hypertension — "
