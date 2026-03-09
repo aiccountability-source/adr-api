@@ -383,7 +383,7 @@ class ADRecord:
         print(f"Hash:         {self.record_hash[:32]}...")
         print(f"Prev Hash:    {self.previous_hash[:32]}...")
         if self.compliance_warnings:
-            print(f"\nWarnings:")
+            print("\nWarnings:")
             for w in self.compliance_warnings:
                 print(f"  {w}")
         print(f"{'='*60}\n")
