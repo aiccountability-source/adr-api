@@ -50,9 +50,9 @@ from enum import Enum
 # For production deployment, provide an Ed25519PrivateKey via ADRClient(signing_key=...).
 try:
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-    from cryptography.hazmat.primitives.serialization import (  # noqa: F401
+from cryptography.hazmat.primitives.serialization import (  # noqa: F401
         Encoding, PublicFormat, PrivateFormat, NoEncryption  # noqa: F401
-    )
+)
     import base64
     _ED25519_AVAILABLE = True
 except ImportError:
