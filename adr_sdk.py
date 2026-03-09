@@ -48,8 +48,6 @@ from enum import Enum
 # Requires: pip install cryptography
 # In demo/test mode the SDK falls back to HMAC-SHA256.
 # For production deployment, provide an Ed25519PrivateKey via ADRClient(signing_key=...).
-try:
-    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 # Ed25519 — production signing
 # Requires: pip install cryptography
 try:
