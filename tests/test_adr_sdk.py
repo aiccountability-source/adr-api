@@ -194,7 +194,6 @@ class TestAutomatedQualityChecks:
                 "Net negative factors exceed positive factors by 30 percentage points. "
                 "Application cannot proceed to approval under current policy parameters. "
                 "Policy basis: CreditPolicy-v2.3.1."
-            ),
             reasoning_method="chain_of_thought",
             confidence=0.72
         )
@@ -227,7 +226,15 @@ class TestAutomatedQualityChecks:
             decision_type="credit_approval",
             input_summary={"applicant_id": "pseudonym-I001"},
             output={"decision": "approved"},
-            reasoning=COMPLIANT_REASONING,
+             reasoning=(
+                "Application approved at 84% confidence. "
+                "Credit score 712 exceeds the approved band under CreditPolicy-v2.3.1. "
+                "Income-to-debt ratio of 0.31 contributed +23% toward approval. "
+                "Employment stability of 48 months contributed +18% toward approval. "
+                "Two recent credit inquiries contributed -8% against approval. "
+                "Net positive factors outweigh negative factors by 33 percentage points. "
+                "Decision authorized under CreditPolicy-v2.3.1."
+            ),
             reasoning_method="chain_of_thought",
             confidence=1.5
         )
