@@ -50,15 +50,28 @@ from enum import Enum
 # For production deployment, provide an Ed25519PrivateKey via ADRClient(signing_key=...).
 try:
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
-from cryptography.hazmat.primitives.serialization import (  # noqa: F401
-        Encoding, PublicFormat, PrivateFormat, NoEncryption  # noqa: F401
-)
+# Ed25519 — production signing
+# Requires: pip install cryptography
+try:
+    from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
+    from cryptography.hazmat.primitives.serialization import (
+        Encoding, PublicFormat, PrivateFormat, NoEncryption
+    )
     import base64
     _ED25519_AVAILABLE = True
 except ImportError:
     _ED25519_AVAILABLE = False
+# ─────────────────────────────────────────────
+# Controlled Vocabularies
+# ─────────────────────────────────────────────
 
-
+class ReasoningMethod(str, Enum):
+    CHAIN_OF_THOUGHT = "chain_of_thought"
+    SHAP = "shap"
+    LIME = "lime"
+    RULE_TRACE = "rule_trace"
+    ATTENTION = "attention"
+    INTEGRATED_GRADIENTS = "integrated_gradients"
 # ─────────────────────────────────────────────
 # Controlled Vocabularies
 # ─────────────────────────────────────────────
