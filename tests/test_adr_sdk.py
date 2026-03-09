@@ -194,6 +194,7 @@ class TestAutomatedQualityChecks:
                 "Net negative factors exceed positive factors by 30 percentage points. "
                 "Application cannot proceed to approval under current policy parameters. "
                 "Policy basis: CreditPolicy-v2.3.1."
+            ),
             reasoning_method="chain_of_thought",
             confidence=0.72
         )
