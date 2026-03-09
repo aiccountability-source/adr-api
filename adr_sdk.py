@@ -48,8 +48,7 @@ from enum import Enum
 # Requires: pip install cryptography
 # In demo/test mode the SDK falls back to HMAC-SHA256.
 # For production deployment, provide an Ed25519PrivateKey via ADRClient(signing_key=...).
-# Ed25519 — production signing
-# Requires: pip install cryptography
+# Ed25519 — production signing (Requires: pip install cryptography)
 try:
     from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
     from cryptography.hazmat.primitives.serialization import (
@@ -59,31 +58,15 @@ try:
     _ED25519_AVAILABLE = True
 except ImportError:
     _ED25519_AVAILABLE = False
-# ─────────────────────────────────────────────
-# Controlled Vocabularies
-# ─────────────────────────────────────────────
 
 class ReasoningMethod(str, Enum):
+    """Controlled vocabulary for AI reasoning transparency."""
     CHAIN_OF_THOUGHT = "chain_of_thought"
     SHAP = "shap"
     LIME = "lime"
     RULE_TRACE = "rule_trace"
     ATTENTION = "attention"
-    INTEGRATED_GRADIENTS = "integrated_gradients"
-# ─────────────────────────────────────────────
-# Controlled Vocabularies
-# ─────────────────────────────────────────────
-
-class ReasoningMethod(str, Enum):
-    CHAIN_OF_THOUGHT = "chain_of_thought"
-    SHAP = "shap"
-    LIME = "lime"
-    RULE_TRACE = "rule_trace"
-    ATTENTION = "attention"
-    INTEGRATED_GRADIENTS = "integrated_gradients"
-
-
-class DecisionType(str, Enum):
+    INTEGRATED_GRADIENTS = "integrated_gradients"class DecisionType(str, Enum):
     # Credit
     CREDIT_APPROVAL = "credit_approval"
     CREDIT_LIMIT = "credit_limit"
