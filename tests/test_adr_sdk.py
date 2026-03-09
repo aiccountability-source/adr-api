@@ -188,8 +188,12 @@ class TestAutomatedQualityChecks:
             output={"decision": "referred"},
             reasoning=(
                 "Application referred at 72% confidence. Credit score 645 is below "
-                "target threshold. Income-to-debt ratio contributed -18% against approval. "
-                "Employment history contributed -12%. Policy basis: CreditPolicy-v2.3.1."
+                "the approved band under CreditPolicy-v2.3.1. "
+                "Income-to-debt ratio of 0.42 contributed -18% against approval. "
+                "Employment history of 8 months contributed -12% against approval. "
+                "Net negative factors exceed positive factors by 30 percentage points. "
+                "Application cannot proceed to approval under current policy parameters. "
+                "Policy basis: CreditPolicy-v2.3.1."
             ),
             reasoning_method="chain_of_thought",
             confidence=0.72
@@ -235,7 +239,15 @@ class TestAutomatedQualityChecks:
             decision_type="credit_approval",
             input_summary={"applicant_id": "pseudonym-J001"},
             output={"decision": "approved"},
-            reasoning=COMPLIANT_REASONING,
+            reasoning=(
+                "Application approved at 84% confidence. "
+                "Credit score 712 exceeds minimum threshold of 680 under CreditPolicy-v2.3.1. "
+                "Income-to-debt ratio of 0.31 contributed +23% toward approval. "
+                "Employment stability of 48 months contributed +18% toward approval. "
+                "Two recent credit inquiries contributed -8% against approval. "
+                "Net positive factors outweigh negative factors by 33 percentage points. "
+                "Decision authorized under CreditPolicy-v2.3.1."
+            ),
             reasoning_method="chain_of_thought",
             confidence=0.84,
             data_quality_flags=["bureau_data_stale_45d"]
@@ -479,4 +491,3 @@ class TestDecisionTypes:
             confidence=0.95
         )
         assert record.decision_type == "null_decision"
-
